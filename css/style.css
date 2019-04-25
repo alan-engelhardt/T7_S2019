@@ -1,0 +1,105 @@
+body{
+	font-family: sans-serif;
+}
+
+img{
+	max-width: 100%;
+}
+
+.details-img{
+    width: 60%;
+    float: left;
+    margin-right: 1em;
+}
+
+.detail-btn{
+    margin-bottom: 1em;
+}
+
+#loader{
+	font-family: monospace;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: white;
+	font-size: 2em;
+	padding-left: 40%;
+	line-height: 100vh;
+}
+
+.hide{
+	display: none;
+}
+
+#carlist article{
+	margin-bottom: 1em;
+	border: orange solid 1px;
+	border-radius: .5em;
+	padding: .1em 1em;
+}
+
+a{
+	display: inline-block;
+	margin-top: .5em;
+    margin-right: .5em;
+	text-decoration: none;
+	padding: .3em 1em;
+	border-radius: .5em;
+	background-color: skyblue;
+	color: white;
+}
+
+.tag{
+	display: inline-block;
+	margin-top: .5em;
+    margin-right: .5em;
+	padding: .3em 1em;
+	border-radius: .5em;
+	background-color: orange;
+	color: white;
+}
+
+#cat-nav a{
+	display: block;
+}
+
+#carlist article a{
+	display: block;
+	width: 8em;
+}
+
+#cat-nav a{
+	text-transform: capitalize;
+}
+
+a:hover{
+	background-color: orange;
+}
+
+#details-main img{
+	border: 1px solid orange;
+	padding: 1em;
+	border-radius: 1em;
+}
+
+#carlist{
+	margin-top: 1em;
+}
+
+@media screen and (min-width: 700px){
+	body{
+		width: 80vw;
+		margin: auto;
+	}
+	#carlist{
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+		grid-gap: 1em;
+	}
+	#cat-nav a{
+		margin: 1em .2em;
+		display: inline-block;
+	}
+}

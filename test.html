@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+    <a href="?id=1&name=Peter Pan&email=peter@pan.org">send</a>
+<script>
+    const URLprms = new URLSearchParams(window.location.search);
+    console.log(URLprms.get("name"));
+    console.log(URLprms.get("email"));
+</script>
+</body>
+</html>

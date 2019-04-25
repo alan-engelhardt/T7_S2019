@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>t</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <h1>Used Cars</h1>
+    <main id="details-main">
+    <nav><a href="index.html">Back</a></nav>
+        <article>
+            <h2><span class="make">MAKE</span> <span class="model">MODEL</span></h2>
+            <img class="details-img">
+            <h3>Kr. <span class="price">PRICE</span></h3>
+            <p>KM: <span class="km">KM</span></p>
+            <section class="excerpt"></section>
+            <p>Color: <span class="color">COLOR</span></p>
+        </article>
+    </main>
+
+    <script>
+        const baseLink = "http://ale-kea.dk/wp/wp-json/wp/v2/car/";
+        const params = new URLSearchParams(window.location.search);
+        const carID = params.get("id");
+
+        fetch(baseLink + carID + "?_embed").then(e => e.json()).then(showCar);
+
+        const article = document.querySelector("article");
+        const make = document.querySelector(".make");
+        const model = document.querySelector(".model");
+        const price = document.querySelector(".price");
+        const km = document.querySelector(".km");
+        const color = document.querySelector(".color");
+        const excerpt = document.querySelector(".excerpt");
+        const img = document.querySelector("img");
+
+        function showCar(data) {
+
+            data._embedded["wp:term"][1].forEach(term=>{
+                console.log(term.name)
+                const newP = document.createElement("p");
+                newP.textContent=term.name;
+                newP.classList.add("tag");
+                article.appendChild(newP);
+            });
+
+            make.textContent = data.make;
+            model.textContent = data.title.rendered;
+            price.textContent = data.price;
+            km.textContent = data.km;
+            color.textContent = data.color;
+            excerpt.innerHTML = data.excerpt.rendered;
+            img.src = data._embedded["wp:featuredmedia"][0].media_details.sizes.full.source_url;
+        }
+    </script>
+</body>
+
+</html>

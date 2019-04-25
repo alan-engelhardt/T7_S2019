@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>t</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <h1>Car Details</h1>
+    <nav><a href="index.html">Back</a></nav>
+    <main id="details-main">
+        <article>
+            <h2><span class="make">MAKE</span> <span class="model">MODEL</span></h2>
+            <img class="details-img">
+            <h3>Kr. <span class="price">PRICE</span></h3>
+            <p>KM: <span class="km">KM</span></p>
+            <section class="excerpt"></section>
+            <p>Color: <span class="color">COLOR</span></p>
+        </article>
+    </main>
+
+    <script>
+        const baseLink = "http://ale-kea.dk/wp/wp-json/wp/v2/car/";
+        const URLprms = new URLSearchParams(window.location.search);
+        const carID = URLprms.get("myCarID")
+
+        console.log(baseLink + carID + "?_embed");
+
+        fetch(baseLink + carID + "?_embed").then(e => e.json()).then(showCar);
+
+        function showCar(data) {
+            document.querySelector(".make").textContent = data.make;
+            document.querySelector(".model").textContent = data.title.rendered;
+            document.querySelector(".price").textContent = data.price;
+            document.querySelector(".km").textContent = data.km;
+            document.querySelector(".color").textContent = data.color;
+            document.querySelector(".excerpt").innerHTML = data.excerpt.rendered;
+            document.querySelector("img").src = data._embedded["wp:featuredmedia"][0].media_details.sizes.full.source_url;
+        }
+    </script>
+</body>
+
+</html>

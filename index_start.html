@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Used Cars</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <h1>Used Cars</h1>
+    <main id="carlist"></main>
+    <template>
+        <article>
+            <h2><span class="make">MAKE</span> <span class="model">MODEL</span></h2>
+        </article>
+    </template>
+
+    <script>
+        const template = document.querySelector("template").content;
+        const parent = document.querySelector("main");
+        const baseLink = "http://ale-kea.dk/wp/wp-json/wp/v2/";
+
+        function loadAll() {
+            fetch(baseLink + "car/?_embed").then(e => e.json()).then(show);
+        }
+
+        function show(cars) {
+            cars.forEach(car => {
+                const clone = template.cloneNode(true);
+                clone.querySelector(".make").textContent = car.make;
+                clone.querySelector(".model").textContent = car.title.rendered;
+                parent.appendChild(clone);
+            });
+        }
+
+        loadAll()
+    </script>
+</body>
+
+</html>
