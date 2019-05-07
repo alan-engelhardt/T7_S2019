@@ -2,6 +2,10 @@ body{
 	font-family: sans-serif;
 }
 
+.hide{
+    display: none;
+}
+
 img{
 	max-width: 100%;
 }
