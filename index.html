@@ -9,7 +9,7 @@
 
 <body>
     <h1>Used Cars</h1>
-    <nav></nav>
+    <nav><a href="?">All</a></nav>
     <main id="carlist"></main>
 
     <template>
@@ -24,7 +24,7 @@
     <script>
         const urlP = new URLSearchParams(window.location.search)
 
-            console.log(urlP.get("shop"))
+        console.log(urlP.get("shop"))
 
         const template = document.querySelector("template").content;
         const parent = document.querySelector("main");
@@ -42,10 +42,6 @@
                 const newA = document.createElement("a");
                 newA.textContent = shop.title.rendered;
                 newA.href = "?shop=" + shop.id;
-                newA.addEventListener("click", e => {
-                    //e.preventDefault();
-                    console.log(shop.id)
-                })
                 nav.appendChild(newA);
             })
         }
@@ -57,13 +53,15 @@
         function show(cars) {
             cars.forEach(car => {
                 console.log(car.shop[0].post_title, car.shop[0].id)
-                const clone = template.cloneNode(true);
-                clone.querySelector(".make").textContent = car.make;
-                clone.querySelector("a").href = "details.html?myCarID=" + car.id;
-                clone.querySelector(".price").textContent = car.price;
-                clone.querySelector(".model").textContent = car.title.rendered;
-                clone.querySelector("img").src = car._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url;
-                parent.appendChild(clone);
+                if (car.shop[0].id == urlP.get("shop") || urlP.get("shop") == null) {
+                    const clone = template.cloneNode(true);
+                    clone.querySelector(".make").textContent = car.make;
+                    clone.querySelector("a").href = "details.html?myCarID=" + car.id;
+                    clone.querySelector(".price").textContent = car.price;
+                    clone.querySelector(".model").textContent = car.title.rendered;
+                    clone.querySelector("img").src = car._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url;
+                    parent.appendChild(clone);
+                }
             });
         }
 
